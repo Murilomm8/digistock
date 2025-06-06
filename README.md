@@ -40,7 +40,7 @@ O sistema permite o cadastro, edição e exclusão de produtos, fornecedores e c
 
 ---
 
-## ⚙Instalação e Configuração
+## Instalação e Configuração
 
 ```bash
 # Clone o repositório
@@ -167,6 +167,6 @@ Depois disso, abra um **Pull Request** e descreva suas alterações!
 
 ---
 
-## 📬 Contato
+##  Contato
 
 Se quiser dar feedback, relatar bugs ou colaborar de alguma outra forma, fique à vontade para abrir uma issue!
