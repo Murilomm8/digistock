@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digistock Vendas</title>
+<style>
+  /* Reset de estilos */
+  * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+  }
+
+  body {
+      background-color: #f4f4f4;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+  }
+
+  .vendas-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 800px;
+  }
+
+  header {
+      text-align: center;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 10px;
+  }
+
+  header h1 {
+      color: #0a1f44;
+  }
+
+  .input-container {
+      display: flex;
+      gap: 10px;
+  }
+
+  .input-container input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      background-color: #ffffff;
+      color: #333;
+  }
+
+  .input-container input::placeholder {
+      color: #999;
+  }
+
+  .input-container button {
+      padding: 10px 20px;
+      background-color: #0a1f44;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+  }
+
+  .input-container button:hover {
+      background-color: #071938;
+      transform: scale(1.05);
+  }
+
+  .input-container button:active {
+      transform: scale(0.95);
+  }
+
+  .produto-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      background-color: #f9f9f9;
+  }
+
+  .produto-item button {
+      padding: 5px 10px;
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+  }
+
+  .produto-item button:hover {
+      background-color: #cc0000;
+      transform: scale(1.05);
+  }
+
+  .total-container {
+      text-align: right;
+      margin-top: 20px;
+  }
+
+  .total-container span {
+      font-size: 24px;
+      font-weight: bold;
+      color: #0a1f44;
+  }
+
+  .pagamento-container {
+      margin-top: 20px;
+  }
+
+  .botoes-pagamento {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 10px;
+  }
+
+  .botoes-pagamento button {
+      flex: 1;
+      min-width: 120px;
+      padding: 10px;
+      background-color: #0a1f44;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.3s, transform 0.2s;
+  }
+
+  .botoes-pagamento button:hover {
+      background-color: #071938;
+      transform: scale(1.05);
+  }
+
+  .botoes-pagamento button:active {
+      transform: scale(0.95);
+  }
+
+  .botoes-pagamento button.selected {
+      background-color: #4caf50;
+  }
+
+  .finalizar-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 20px;
+  }
+
+  .finalizar-container button {
+      flex: 1;
+      padding: 10px;
+      background-color: #0a1f44;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+  }
+
+  .finalizar-container button:hover {
+      background-color: #071938;
+      transform: scale(1.05);
+  }
+
+  .finalizar-container button:active {
+      transform: scale(0.95);
+  }
+
+  /* Estilizando a lista de vendas */
+  .vendas-lista {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+  }
+
+  .venda-item {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 15px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .venda-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .venda-item p {
+      margin: 5px 0;
+  }
+  
+  /* Estilizando o botão "Listar Últimas Vendas" */
+  .ultimas-vendas-container button {
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #4caf50, #81c784);
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+  }
+  
+  .ultimas-vendas-container button:hover {
+      background: linear-gradient(135deg, #43a047, #66bb6a);
+      transform: translateY(-3px);
+      box-shadow: 0px 6px 10px rgba(0,0,0,0.15);
+  }
+  
+  .ultimas-vendas-container button:active {
+      transform: translateY(1px);
+      box-shadow: 0px 3px 5px rgba(0,0,0,0.1);
+  }
+
+  /* Responsividade */
+  @media (max-width: 768px) {
+      .vendas-container {
+          padding: 20px;
+      }
+
+      header h1 {
+          font-size: 1.5rem;
+      }
+
+      .input-container {
+          flex-direction: column;
+      }
+
+      .input-container button {
+          width: 100%;
+      }
+
+      .produto-item {
+          flex-direction: column;
+          align-items: flex-start;
+      }
+
+      .botoes-pagamento button {
+          width: 100%;
+      }
+
+      .finalizar-container {
+          flex-direction: column;
+      }
+
+      .finalizar-container button {
+          width: 100%;
+      }
+  }
+
+  @media (max-width: 480px) {
+      header h1 {
+          font-size: 1.2rem;
+      }
+
+      .total-container span {
+          font-size: 1.5rem;
+      }
+  }
+</style>
+
+
+</head>
+<body>
+  <div class="vendas-container">
+    <header>
+      <h1>Digistock Vendas</h1>
+    </header>
+    
+    <div class="input-container">
+      <input type="text" id="ean-input" placeholder="Digite ou escaneie o código de barras">
+      <button id="adicionar-produto">Adicionar</button>
+    </div>
+    
+    <!-- Botão para listar as últimas vendas -->
+    <div class="ultimas-vendas-container">
+      <button id="listar-vendas">Listar Últimas Vendas</button>
+    </div>
+    
+    <section class="produtos-lista" id="lista-produtos"></section>
+    
+    <div class="total-container">
+      <p>Total: R$ <span id="total">0.00</span></p>
+    </div>
+    
+    <div class="pagamento-container">
+      <h2>Selecione o Tipo de Pagamento</h2>
+      <div class="botoes-pagamento">
+        <button data-pagamento="credito">Crédito</button>
+        <button data-pagamento="debito">Débito</button>
+        <button data-pagamento="dinheiro">Dinheiro</button>
+        <button data-pagamento="pix">PIX</button>
+      </div>
+    </div>
+    
+    <div class="finalizar-container">
+      <button id="finalizar-venda" disabled>Finalizar Venda</button>
+      <button id="cancelar-venda">Cancelar Venda</button>
+    </div>
+    
+    <!-- Container para exibir as últimas vendas -->
+    <section class="vendas-lista" id="lista-vendas">
+      <!-- Aqui serão adicionadas as vendas retornadas pelo back-end -->
+    </section>
+  </div>
+  
+  <script>
+  // Elementos da interface de produtos e venda
+  const listaProdutos = document.getElementById("lista-produtos");
+  const totalSpan = document.getElementById("total");
+  const eanInput = document.getElementById("ean-input");
+  const adicionarBtn = document.getElementById("adicionar-produto");
+  const botoesPagamento = document.querySelectorAll(".botoes-pagamento button");
+  const finalizarBtn = document.getElementById("finalizar-venda");
+  const cancelarBtn = document.getElementById("cancelar-venda");
+
+  let total = 0;
+  let pagamentoSelecionado = null;
+  let produtosAdicionados = []; // Array para armazenar os produtos adicionados
+
+  // Função para adicionar um produto à lista
+  async function adicionarProduto(codigoBarras) {
+    try {
+      // Consulta o endpoint para buscar o produto pelo código de barras (EAN)
+      const response = await fetch(`http://localhost:3000/api/produtos/codigo_barras/${codigoBarras}`);
+      if (!response.ok) {
+        alert(`Produto com código de barras ${codigoBarras} não encontrado no cadastro.`);
+        return;
+      }
+      const produtoData = await response.json();
+      // Supondo que produtoData contenha os campos 'nome' e 'preco'
+      const preco = parseFloat(produtoData.preco);
+      const descricao = produtoData.nome;
+
+      // Cria o elemento para exibir o produto na lista
+      const item = document.createElement("div");
+      item.className = "produto-item";
+      item.innerHTML = `
+        <span class="produto-ean">${codigoBarras}</span>
+        <span class="produto-descricao">${descricao}</span>
+        <span class="produto-preco">R$ ${preco.toFixed(2)}</span>
+        <button class="excluir-btn">Excluir</button>
+      `;
+
+      // Evento de exclusão do produto
+      item.querySelector(".excluir-btn").addEventListener("click", () => {
+        listaProdutos.removeChild(item);
+        total -= preco;
+        totalSpan.textContent = total.toFixed(2);
+        produtosAdicionados = produtosAdicionados.filter(p => p.codigoBarras !== codigoBarras);
+      });
+
+      listaProdutos.appendChild(item);
+      produtosAdicionados.push({ codigoBarras, preco });
+      total += preco;
+      totalSpan.textContent = total.toFixed(2);
+    } catch (error) {
+      console.error("Erro ao buscar produto:", error);
+    }
+  }
+
+  // Evento para adicionar produto via botão
+  adicionarBtn.addEventListener("click", () => {
+    const codigoBarras = eanInput.value.trim();
+    if (codigoBarras) {
+      adicionarProduto(codigoBarras);
+      eanInput.value = "";
+      eanInput.focus();
+    }
+  });
+
+  // Permite adicionar um produto pressionando "Enter"
+  eanInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      adicionarBtn.click();
+    }
+  });
+
+  // Seleção do tipo de pagamento
+  botoesPagamento.forEach((botao) => {
+    botao.addEventListener("click", () => {
+      botoesPagamento.forEach((btn) => btn.classList.remove("selected"));
+      botao.classList.add("selected");
+      pagamentoSelecionado = botao.dataset.pagamento;
+      finalizarBtn.disabled = false;
+    });
+  });
+
+  // Evento para finalizar a venda
+  finalizarBtn.addEventListener("click", async () => {
+    if (produtosAdicionados.length === 0) {
+      alert("Nenhum produto adicionado para a venda.");
+      return;
+    }
+
+    // Cria arrays com os códigos de barras e quantidades para cada produto (aqui supomos 1 unidade por produto)
+    const produto_ids = produtosAdicionados.map(prod => prod.codigoBarras);
+    const quantidades = produtosAdicionados.map(prod => 1);
+
+    const vendaData = {
+      total: total.toFixed(2),
+      produto_id: produto_ids,       // Array de códigos de barras
+      payment_methods: pagamentoSelecionado,
+      quantidade: quantidades         // Array de quantidades
+    };
+
+    try {
+      const response = await fetch("http://localhost:3000/api/venda", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(vendaData)
+      });
+
+      const result = await response.json();
+      if (!response.ok || !result.success) {
+        throw new Error(`Erro ao registrar venda. Status: ${response.status} - ${result.message}`);
+      }
+      alert(`✅ Venda registrada com sucesso! ID: ${result.vendaId}`);
+    } catch (error) {
+      console.error("Erro ao finalizar venda:", error);
+      alert("Não foi possível realizar venda, estoque insuficiente!");
+    }
+
+    // Limpa a interface após finalizar a venda
+    listaProdutos.innerHTML = "";
+    produtosAdicionados = [];
+    total = 0;
+    totalSpan.textContent = "0.00";
+    finalizarBtn.disabled = true;
+    pagamentoSelecionado = null;
+    botoesPagamento.forEach((btn) => btn.classList.remove("selected"));
+  });
+
+  // Evento para cancelar a venda
+  cancelarBtn.addEventListener("click", () => {
+    if (confirm("Tem certeza que deseja cancelar esta venda?")) {
+      listaProdutos.innerHTML = "";
+      produtosAdicionados = [];
+      total = 0;
+      totalSpan.textContent = "0.00";
+      finalizarBtn.disabled = true;
+      pagamentoSelecionado = null;
+      botoesPagamento.forEach((btn) => btn.classList.remove("selected"));
+    }
+  });
+
+  // Elementos e funções para listar as últimas vendas
+  const listarVendasBtn = document.getElementById("listar-vendas");
+  const listaVendasContainer = document.getElementById("lista-vendas");
+
+  async function listarUltimasVendas() {
+    try {
+      // URL do endpoint para as últimas vendas (exemplo: rotas montadas em /api/venda/ultimas)
+      const response = await fetch("http://localhost:3000/api/venda/ultimas");
+      if (!response.ok) {
+        throw new Error(`Erro ao buscar vendas. Status: ${response.status}`);
+      }
+      const data = await response.json();
+      exibirVendas(data.vendas);
+    } catch (error) {
+      console.error("Erro ao listar vendas:", error);
+      alert("Erro ao buscar as últimas vendas. Verifique o console para mais detalhes.");
+    }
+  }
+
+  function exibirVendas(vendas) {
+    listaVendasContainer.innerHTML = "";
+    if (!vendas || vendas.length === 0) {
+      listaVendasContainer.innerHTML = "<p>Nenhuma venda encontrada.</p>";
+      return;
+    }
+
+    vendas.forEach(venda => {
+      // Cria o card da venda com os detalhes e o botão "Ver Itens"
+      const divVenda = document.createElement("div");
+      divVenda.className = "venda-item";
+      divVenda.innerHTML = `
+        <p><strong>ID:</strong> ${venda.id}</p>
+        <p><strong>Total:</strong> R$ ${parseFloat(venda.total).toFixed(2)}</p>
+        <p><strong>Data:</strong> ${new Date(venda.data_venda).toLocaleString()}</p>
+        <button class="ver-itens-btn">Ver Itens</button>
+        <div class="itens-container" style="display: none; margin-top: 10px;"></div>
+      `;
+      listaVendasContainer.appendChild(divVenda);
+
+      const verItensBtn = divVenda.querySelector(".ver-itens-btn");
+      const itensContainer = divVenda.querySelector(".itens-container");
+
+      verItensBtn.addEventListener("click", () => {
+        if (itensContainer.style.display === "none") {
+          // Obtém os itens vendidos; se já for objeto, não precisa fazer parse
+          let produtos = venda.produtos_vendidos;
+          if (typeof produtos === "string") {
+            try {
+              produtos = JSON.parse(produtos);
+            } catch (err) {
+              console.error("Erro ao fazer parse do JSON:", err);
+              produtos = [];
+            }
+          }
+          itensContainer.innerHTML = "";
+          if (produtos && produtos.length > 0) {
+            produtos.forEach(item => {
+              const itemDiv = document.createElement("div");
+              itemDiv.className = "item-produto";
+              itemDiv.style.borderTop = "1px solid #ddd";
+              itemDiv.style.padding = "5px 0";
+              itemDiv.innerHTML = `
+                <p><strong>ID:</strong> ${item.id}</p>
+                <p><strong>Nome:</strong> ${item.nome}</p>
+                <p><strong>Quantidade:</strong> ${item.quantidade}</p>
+              `;
+              itensContainer.appendChild(itemDiv);
+            });
+          } else {
+            itensContainer.innerHTML = "<p>Sem itens.</p>";
+          }
+          itensContainer.style.display = "block";
+          verItensBtn.textContent = "Ocultar Itens";
+        } else {
+          itensContainer.style.display = "none";
+          verItensBtn.textContent = "Ver Itens";
+        }
+      });
+    });
+  }
+
+  listarVendasBtn.addEventListener("click", listarUltimasVendas);
+</script>
+
+
+</body>
+</html>
+  </body>
+  </html>
+  

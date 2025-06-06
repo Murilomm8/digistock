@@ -1,0 +1,142 @@
+  /* ========== ESTILOS GLOBAIS ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* ========== CONTAINER DE LOGIN ========== */
+        .login-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        /* ========== TÍTULO ========== */
+        .login-container h2 {
+            color: #0a1f44;
+            margin-bottom: 25px;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container h2 i {
+            margin-right: 10px;
+            color: #0a1f44;
+        }
+
+        /* ========== FORMULÁRIO ========== */
+        #login-form {
+            margin-top: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .input-group label i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+            color: #0a1f44;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: #0a1f44;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(10, 31, 68, 0.2);
+        }
+
+        /* ========== BOTÃO ========== */
+        button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #0a1f44;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #071938;
+        }
+
+        /* ========== MENSAGEM DE ERRO ========== */
+        #error-message {
+            background-color: #fee;
+            color: #e74c3c;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 15px 0;
+            border-left: 4px solid #e74c3c;
+            display: none;
+        }
+
+        /* ========== LINK ========== */
+        p {
+            margin-top: 20px;
+            color: #666;
+        }
+
+        p a {
+            color: #0a1f44;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        p a:hover {
+            color: #1a3a8f;
+            text-decoration: underline;
+        }
+
+        /* ========== RESPONSIVIDADE ========== */
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 20px;
+            }
+            
+            .login-container h2 {
+                font-size: 20px;
+            }
+        }

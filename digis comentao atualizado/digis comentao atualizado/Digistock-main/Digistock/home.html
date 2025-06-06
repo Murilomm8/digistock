@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Digistock</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://kit.fontawesome.com/yourkit.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style/home.css">
+</head>
+<body>
+  <div class="sidebar">
+      <a href="Home.html" class="active"><i class="fas fa-home"></i> Início</a>
+      <a href="ListasProdutos.html"><i class="fas fa-boxes"></i> Produtos</a>
+      <a href="Categorias.html"><i class="fas fa-tags"></i> Categorias</a>
+      <a href="listasFornecedores.html"><i class="fas fa-truck"></i> Fornecedores</a>
+      <a href="Entrada.html"><i class="fas fa-arrow-down"></i> Entrada</a>
+      <a href="Venda.html"><i class="fas fa-arrow-up"></i> Venda</a>
+      <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Sair</a>
+  </div>
+  <div class="content">
+      <h1>Bem-vindo ao Digistock</h1>
+      <p class="subtitle">Gerencie seu estoque de forma eficiente e intuitiva.</p>
+      
+      <!-- Cards de Navegação -->
+      <div class="dashboard">
+          <div class="card" onclick="window.location.href='ListasProdutos.html'">
+              <h2><i class="fas fa-boxes"></i> Produtos</h2>
+              <p>Gerencie seus produtos e estoque.</p>
+          </div>
+          <div class="card" onclick="window.location.href='Categorias.html'">
+              <h2><i class="fas fa-tags"></i> Categorias</h2>
+              <p>Organize seus produtos por categorias.</p>
+          </div>
+          <div class="card" onclick="window.location.href='listasFornecedores.html'">
+              <h2><i class="fas fa-truck"></i> Fornecedores</h2>
+              <p>Cadastre e gerencie fornecedores.</p>
+          </div>
+          <div class="card" onclick="window.location.href='Entrada.html'">
+              <h2><i class="fas fa-arrow-down"></i> Entrada</h2>
+              <p>Registre entradas de produtos no estoque.</p>
+          </div>
+          <div class="card" onclick="window.location.href='Venda.html'">
+              <h2><i class="fas fa-arrow-up"></i> Venda</h2>
+              <p>Registre vendas de produtos e atualize o estoque.</p>
+          </div>
+      </div>
+
+      <!-- Barra de Separação -->
+      <hr class="separator">
+
+      <!-- Seção de Avisos Estáticos -->
+      <h2 class="section-title"><i class="fas fa-bell"></i> Avisos Importantes</h2>
+      <!--<div class="avisos-container">
+          <div class="aviso aviso-sistema">
+              <h3><i class="fas fa-info-circle"></i> Aviso do Sistema</h3>
+              <p>Carregando avisos do sistema...</p>
+          </div>
+          <div class="aviso aviso-estoque">
+              <h3><i class="fas fa-exclamation-triangle"></i> Aviso de Estoque</h3>
+              <p>Carregando avisos de estoque...</p>
+          </div>
+          <div class="aviso aviso-geral">
+              <h3><i class="fas fa-bullhorn"></i> Aviso Geral</h3>
+              <p>Carregando avisos gerais...</p>
+          </div>
+      </div> -->
+
+      <!-- Seção para exibir produtos com estoque baixo -->
+      <div class="low-stock-container">
+          <h2>Produtos com Estoque Baixo</h2>
+          <div class="low-stock-cards">
+              <!-- Os cards serão gerados aqui via JavaScript; se nenhum produto for encontrado, uma mensagem será exibida -->
+              <p>Carregando produtos com estoque baixo...</p>
+          </div>
+      </div>
+  </div>
+  
+  <script>
+      // Função de logout
+      function logout() {
+          if (confirm('Deseja realmente sair do sistema?')) {
+              window.location.href = 'index.html';
+          }
+      }
+      
+      // Ao carregar a página, chama as funções para buscar avisos e produtos com estoque baixo.
+      document.addEventListener("DOMContentLoaded", () => {
+          buscarAvisos();
+          buscarProdutosBaixoEstoque();
+      });
+      
+      // Função para buscar os avisos estáticos (por exemplo, de sistema, estoque e geral)
+      async function buscarAvisos() {
+          try {
+              const response = await fetch("http://localhost:3000/api/avisos");
+              if (!response.ok) {
+                  throw new Error("Erro ao buscar avisos");
+              }
+              const avisos = await response.json();
+              
+              // Atualizar o Aviso do Sistema
+              if (avisos.sistema && avisos.sistema.length) {
+                  document.querySelector(".aviso-sistema p").textContent = avisos.sistema.join(" | ");
+              } else {
+                  document.querySelector(".aviso-sistema p").textContent = "Nenhum aviso de sistema.";
+              }
+              
+              // Atualizar o Aviso de Estoque
+              if (avisos.estoque && avisos.estoque.length) {
+                  document.querySelector(".aviso-estoque p").textContent = avisos.estoque.join(" | ");
+              } else {
+                  document.querySelector(".aviso-estoque p").textContent = "Nenhum aviso de estoque.";
+              }
+              
+              // Atualizar o Aviso Geral
+              if (avisos.geral && avisos.geral.length) {
+                  document.querySelector(".aviso-geral p").textContent = avisos.geral.join(" | ");
+              } else {
+                  document.querySelector(".aviso-geral p").textContent = "Nenhum aviso geral.";
+              }
+          } catch (error) {
+              console.error("Erro ao buscar avisos:", error);
+              document.querySelectorAll(".aviso p").forEach(el => el.textContent = "Erro ao carregar avisos.");
+          }
+      }
+      
+      // Função para buscar produtos com estoque baixo e gerar os cards correspondentes
+      async function buscarProdutosBaixoEstoque() {
+          try {
+              const response = await fetch("http://localhost:3000/api/avisos/produtos-bajos");
+              if (!response.ok) {
+                  throw new Error(`Erro na requisição: ${response.statusText}`);
+              }
+              const produtos = await response.json();
+              const container = document.querySelector(".low-stock-cards");
+              container.innerHTML = ""; // Limpa qualquer conteúdo anterior
+              
+              // Se não houver produtos com estoque baixo, exibe uma mensagem adequada.
+              if (!produtos.length) {
+                  container.innerHTML = "<p>Nenhum produto com estoque baixo encontrado.</p>";
+                  return;
+              }
+              
+              // Para cada produto, cria um card utilizando a mesma classe "card" para manter o estilo.
+              produtos.forEach(produto => {
+                  const card = document.createElement("div");
+                  card.className = "card"; // utiliza a classe "card" para o mesmo estilo
+                  
+                  // Cria os elementos e popula com os dados do produto
+                  const titulo = document.createElement("h2");
+                  titulo.textContent = produto.nome;
+                  
+                  const detalhes = document.createElement("p");
+                  detalhes.innerHTML = 
+                      "<strong>Código:</strong> " + produto.codigo_barras + "<br>" +
+                      "<strong>Quantidade:</strong> " + produto.quantidade + "<br>" +
+                      "<strong>Estoque Mínimo:</strong> " + produto.estoque_min + "<br>" +
+                      "<strong>Categoria:</strong> " + produto.categoria + "<br>" +
+                      "<strong>Fornecedor:</strong> " + produto.fornecedor;
+                  
+                  // Adiciona os elementos ao card
+                  card.appendChild(titulo);
+                  card.appendChild(detalhes);
+                  
+                  // Adiciona o card ao container de low stock
+                  container.appendChild(card);
+              });
+          } catch (error) {
+              console.error("Erro ao buscar produtos com estoque baixo:", error);
+              document.querySelector(".low-stock-cards").innerHTML = "<p>Erro ao carregar produtos com estoque baixo.</p>";
+          }
+      }
+  </script>
+  <script src="auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Produtos - Digistock</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style/ListasProdutos.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="Home.html"><i class="fas fa-home"></i> Início</a>
+        <a href="ListasProdutos.html" class="active"><i class="fas fa-boxes"></i> Produtos</a>
+        <a href="Categorias.html"><i class="fas fa-tags"></i> Categorias</a>
+        <a href="listasFornecedores.html"><i class="fas fa-truck"></i> Fornecedores</a>
+        <a href="Entrada.html"><i class="fas fa-arrow-down"></i> Entrada</a>
+        <a href="Venda.html"><i class="fas fa-arrow-up"></i> Venda</a>
+        <a href="index.html" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Sair</a>
+    </div>
+
+    <div class="content">
+        <h2>Lista de Produtos</h2>
+        <button class="btn-add" onclick="window.location.href='Produtos.html'">
+            <i class="fas fa-plus"></i> Adicionar Produto
+        </button>
+
+        <div class="table-container">
+            <table id="tabela-produtos">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Código de Barras</th>
+                        <th>Categoria</th>
+                        <th>Fornecedor</th>
+                        <th>Estoque Mínimo</th>
+                        <th>Quantidade</th>
+                        <th>Preço</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Produtos serão preenchidos pelo script -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="scriptProdutos.js"></script>
+</body>

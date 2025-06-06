@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Entrada de Produtos - DigiStock</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+  <link rel="stylesheet" href="style/Entrada.css">
+</head>
+<body>
+  <div class="sidebar">
+    <a href="Home.html"><i class="fas fa-home"></i> Início</a>
+    <a href="ListasProdutos.html"><i class="fas fa-boxes"></i> Produtos</a>
+    <a href="Categorias.html"><i class="fas fa-tags"></i> Categorias</a>
+    <a href="listasFornecedores.html"><i class="fas fa-truck"></i> Fornecedores</a>
+    <a href="Entrada.html" class="active"><i class="fas fa-arrow-down"></i> Entrada</a>
+    <a href="Venda.html"><i class="fas fa-arrow-up"></i> Venda</a>
+    <a href="index.html" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Sair</a>
+  </div>
+
+  <div class="content">
+    <h2>Gerenciamento de Entradas de Produtos</h2>
+
+    <button class="btn-add" onclick="mostrarFormulario()">
+      <i class="fas fa-plus"></i> Nova Entrada
+    </button>
+
+    <div class="form-container" id="form-entrada">
+      <h3 id="form-title">Registrar Nova Entrada</h3>
+
+      <div class="form-group">
+        <label><i class="fas fa-barcode"></i> Código de Barras:</label>
+        <input type="text" id="codigo-barras" placeholder="Escaneie ou digite o código de barras" />
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-box"></i> Produto:</label>
+        <select id="produto-entrada">
+          <option value="">Selecione um produto</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-truck"></i> Fornecedor:</label>
+        <select id="fornecedor-entrada">
+          <option value="">Selecione um fornecedor</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-calendar"></i> Data da Entrada:</label>
+        <input type="date" id="data-entrada" />
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-dollar-sign"></i> Preço do Custo:</label>
+        <input type="number" id="preco-custo" step="0.01" placeholder="0.00" />
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-boxes"></i> Quantidade:</label>
+        <input type="number" id="quantidade-entrada" placeholder="0" />
+      </div>
+      <div class="buttons">
+        <button class="btn btn-cancel" onclick="esconderFormulario()">
+          <i class="fas fa-times"></i> Cancelar
+        </button>
+        <button class="btn btn-save" onclick="registrarEntrada()">
+          <i class="fas fa-save"></i> Salvar
+        </button>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table id="tabela-entradas">
+        <thead>
+          <tr>
+            <th>Código de barras</th>
+            <th>Produto</th>
+            <th>Fornecedor</th>
+            <th>Data</th>
+            <th>Preço</th>
+            <th>Qtd.</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Conteúdo dinâmico -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="auth.js"></script>
+  <script src="scriptEntrada.js"></script>
+</body>
+</html>

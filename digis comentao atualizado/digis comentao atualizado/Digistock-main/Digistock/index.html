@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Digistock</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style/index.css">
+</head>
+<body>
+    <div class="login-container">
+        <h2><i class="fas fa-box-open"></i> Digistock</h2>
+        <form id="login-form">
+            <div class="input-group">
+                <label for="username"><i class="fas fa-user"></i> Usuário:</label>
+                <input type="text" id="username" name="username" required placeholder="Digite seu usuário">
+            </div>
+            <div class="input-group">
+                <label for="password"><i class="fas fa-lock"></i> Senha:</label>
+                <input type="password" id="password" name="password" required placeholder="Digite sua senha">
+            </div>
+            <button type="submit">Entrar</button>
+        </form>
+        <p id="error-message">Usuário ou senha inválidos</p>
+    </div>
+    <script src="scriptLogin.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorias - Digistock</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style/categoria.css">
+</head>
+    <body>
+        <div class="sidebar">
+            <a href="Home.html"><i class="fas fa-home"></i> Início</a>
+            <a href="ListasProdutos.html"><i class="fas fa-boxes"></i> Produtos</a>
+            <a href="Categorias.html" class="active"><i class="fas fa-tags"></i> Categorias</a>
+            <a href="listasFornecedores.html"><i class="fas fa-truck"></i> Fornecedores</a>
+            <a href="Entrada.html"><i class="fas fa-arrow-down"></i> Entrada</a>
+            <a href="Venda.html"><i class="fas fa-arrow-up"></i> Venda</a>
+            <a href="index.html" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Sair</a>
+        </div>
+    
+        <div class="content">
+            <h2>Gerenciamento de Categorias</h2>
+            
+            <button class="btn-add" id="btn-nova-categoria" onclick="mostrarFormulario()">
+                <i class="fas fa-plus"></i> Nova Categoria
+            </button>
+            
+            <div class="form-container" id="form-categoria" style="display: none;">
+                <h3 id="form-title">Adicionar Nova Categoria</h3>
+                <div class="form-group">
+                    <label><i class="fas fa-tag"></i> Nome da Categoria:</label>
+                    <input type="text" id="categoria-nome" placeholder="Ex: Refrigerantes" required />
+                </div>
+                <div class="buttons">
+                    <button class="btn btn-cancel" id="btn-cancelar" onclick="esconderFormulario()">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                    <button class="btn btn-save" id="btn-salvar">
+                        <i class="fas fa-save"></i> Salvar
+                    </button>
+                </div>
+            </div>
+            
+            <div class="table-container">
+                <table id="tabela-categorias">
+                    <thead>
+                        <tr>
+                            <th>Nome da Categoria</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- As categorias serão carregadas aqui dinamicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    
+        <script>
+            document.addEventListener('DOMContentLoaded', carregarCategorias);
+            
+            function mostrarFormulario() {
+                document.getElementById('form-categoria').style.display = 'block';
+                document.getElementById('form-title').textContent = 'Adicionar Nova Categoria';
+                document.querySelector('.btn-save').innerHTML = '<i class="fas fa-save"></i> Salvar';
+                document.querySelector('.btn-save').onclick = adicionarCategoria;
+            }
+    
+            function esconderFormulario() {
+                document.getElementById('form-categoria').style.display = 'none';
+                limparFormulario();
+            }
+    
+            function editarCategoria(id, nome) {
+                document.getElementById('categoria-nome').value = nome;
+                document.getElementById('form-title').textContent = 'Editar Categoria';
+                document.querySelector('.btn-save').innerHTML = '<i class="fas fa-save"></i> Atualizar';
+                document.querySelector('.btn-save').onclick = () => atualizarCategoria(id);
+                document.getElementById('form-categoria').style.display = 'block';
+            }
+        </script>
+
+    <script src="auth.js"></script>
+    <script src="scriptCategoria.js" defer></script>
+    </body>
+    </html>

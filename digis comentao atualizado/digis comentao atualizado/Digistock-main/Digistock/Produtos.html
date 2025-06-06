@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Produtos - Digistock</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style/produtos.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="Home.html"><i class="fas fa-home"></i> Início</a>
+        <a href="ListasProdutos.html"><i class="fas fa-boxes"></i> Produtos</a>
+        <a href="Categorias.html"><i class="fas fa-tags"></i> Categorias</a>
+        <a href="listasFornecedores.html"><i class="fas fa-truck"></i> Fornecedores</a>
+        <a href="Entrada.html"><i class="fas fa-arrow-down"></i> Entrada</a>
+        <a href="Venda.html"><i class="fas fa-arrow-up"></i> Venda</a>
+        <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Sair</a>
+    </div>
+
+    <div class="content">
+        <div class="form-container">
+            <h2 id="form-title">Cadastro de Produtos</h2>
+
+            <div class="form-group">
+                <label><i class="fas fa-box"></i> Nome do Produto:</label>
+                <input type="text" id="produto-nome" required placeholder="Ex: Arroz Integral Camil 5 KG">
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-barcode"></i> Código de Barras:</label>
+                <input type="text" id="produto-codigo" maxlength="13" pattern="\d{13}" placeholder="Digite ou leia o código de barras (13 números)" required>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-tag"></i> Categoria:</label>
+                <select id="produto-categoria" required>
+                    <option value="" selected disabled>Selecione uma categoria</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-truck"></i> Fornecedor:</label>
+                <select id="produto-fornecedor" required>
+                    <option value="" selected disabled>Selecione um fornecedor</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-boxes"></i> Estoque Mínimo:</label>
+                <input type="number" id="produto-estoque-minimo" required placeholder="Ex: 5">
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-boxes"></i> Quantidade:</label>
+                <input type="number" id="produto-quantidade" required placeholder="Ex: 15">
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-dollar-sign"></i> Preço:</label>
+                <input type="text" id="produto-preco" placeholder="Digite o preço" required>
+            </div>
+
+            <div class="buttons">
+                <button class="btn btn-cancel" onclick="window.location.href='ListasProdutos.html'">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+                <button class="btn btn-save">
+                    <i class="fas fa-save"></i> Salvar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="scriptProdutos.js"></script>
+</body>
+</html>
