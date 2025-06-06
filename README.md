@@ -7,7 +7,7 @@ O sistema permite o cadastro, edição e exclusão de produtos, fornecedores e c
 
 ---
 
-## 🚀 Funcionalidades
+##  Funcionalidades
 
 -  **Autenticação JWT**: Login seguro com criptografia de senha.  
 -  **Gerenciamento de Produtos**: Cadastro, edição, listagem e exclusão.  
